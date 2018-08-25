@@ -33,8 +33,11 @@ contract('Certifier', accounts => {
       willBeRejected(certifier.addCourse('Solidity', 'SE', 30, 1, 5, 45, 80, ['a', 'b', 'c', 'xyz', 'abc'], 3, {from: accounts[1]}))
     })
     it('should allow a student to subscribe to a given course', () => {
-      // willBeFulfilled(certifier.subscribe('SE', 'Pepito', 'Perez', 'CC123', 10, 'p@per.ez', {from: accounts[2], value: 2700000000000000000}))
-    })
+      willBeFulfilled(certifier.subscribe('SE', 'Pepito', 'Perez', 'CC123', 0, 'p@per.ez', {from: accounts[2], value: 3000000000000000000}));
+    });
+    it('should fail if value is not exactly 3 ether', () => {
+      willBeRejected(certifier.subscribe('SE', 'Pepito', 'Pereza', 'CC124', 0, 'p@per.eza', {from: accounts[3], value: 2700000000000000000}));
+    });
     it('should assert true is true', () => {expect(true).to.be.true})
   })
   describe('Finishing', () => {
