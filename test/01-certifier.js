@@ -26,9 +26,10 @@ contract('Certifier', accounts => {
     })
   })
   describe('Flow', () => {
-    it('should allow the certifier to create the course', () => {
-      willBeFulfilled(certifier.addCourse('Solidity', 'SE', 30, 1, 5, 45, 80, ['a', 'b', 'c', 'xyz', 'abc'], 3))
-    })
+    it('should allow the certifier to create the course and return the tx', () => {
+      const response = await certifier.addCourse('Solidity', 'SE', 30, 1, 5, 45, 80, ['a', 'b', 'c', 'xyz', 'abc'], 3);
+      expect(response.tx).to.have.length(66);
+    });
     it('should avoid other accounts to create courses', () => {
       willBeRejected(certifier.addCourse('Solidity', 'SE', 30, 1, 5, 45, 80, ['a', 'b', 'c', 'xyz', 'abc'], 3, {from: accounts[1]}))
     })
